@@ -5,12 +5,13 @@
 class State
 {
 protected:
+	std::stack<State*>* states;
 	sf::RenderWindow* window;
 	std::vector<sf::Texture*> textures;
 	bool quit;
 
 public:
-	State(sf::RenderWindow* window);
+	State(sf::RenderWindow* window, std::stack<State*>* states);
 	virtual ~State();
 
 	const bool& getQuit() const;

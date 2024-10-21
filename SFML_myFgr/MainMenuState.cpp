@@ -1,6 +1,5 @@
 #include "MainMenuState.h"
 
-
 void MainMenuState::initButtons()
 {
 	if (ResourceManager<sf::Font>::Instance().Load("fonts/Sansation.ttf")) {
@@ -12,8 +11,8 @@ void MainMenuState::initButtons()
 	
 }
 
-MainMenuState::MainMenuState(sf::RenderWindow* window)
-	: State(window)
+MainMenuState::MainMenuState(sf::RenderWindow* window, std::stack<State*>* states)
+	: State(window, states)
 {
 	initButtons();
 
@@ -47,7 +46,7 @@ void MainMenuState::updateButtons()
 	}
 	//New Game
 	if (buttons["GAME_STATE"]->isPressed()) {
-		quit = true;
+		states->push(new GameState(window, states));
 	}
 	//QUit the game
 	if (buttons["EXIT_STATE"]->isPressed()) {

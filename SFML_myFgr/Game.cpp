@@ -26,7 +26,7 @@ void Game::initWindow()
 
 void Game::initStates()
 {
-    states.push(new MainMenuState(window));
+    states.push(new MainMenuState(window, &states));
 
 }
 

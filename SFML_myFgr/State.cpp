@@ -1,7 +1,7 @@
 #include "State.h"
 
-State::State(sf::RenderWindow* window)
-	:window(window), quit(false)
+State::State(sf::RenderWindow* window, std::stack<State*>* states)
+	:window(window), quit(false), states(states)
 {
 }
 State::~State()

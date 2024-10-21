@@ -1,6 +1,7 @@
 #pragma once
 #include "State.h"
 #include "Button.h"
+#include "GameState.h"
 
 
 class MainMenuState : public State
@@ -12,7 +13,7 @@ private:
 	void initButtons();
 
 public:
-	MainMenuState(sf::RenderWindow* window);
+	MainMenuState(sf::RenderWindow* window, std::stack<State*>* states);
 	virtual ~MainMenuState();
 
 	void endState();
