@@ -4,18 +4,19 @@ Button::Button(float x, float y, float width, float height, std::string font, st
 {
 	shape.setPosition(sf::Vector2f(x, y));
 	shape.setSize(sf::Vector2f(width, height));
-
+	shape.setOrigin(shape.getSize().x * 0.5f, shape.getSize().y * 0.5f);
 	this->buttonState = BTN_IDLE;
 
 	this->text.setFont(ResourceManager<sf::Font>::Instance().Get(font));
 	this->text.setString(text);
 	this->text.setFillColor(sf::Color::White);
-	this->text.setCharacterSize(12);
+	this->text.setCharacterSize(30);
+	this->text.setOrigin(this->text.getLocalBounds().width * 0.5f, this->text.getLocalBounds().height);
 	this->text.setPosition(
 		this->shape.getPosition().x,
 		this->shape.getPosition().y
 	);
-
+	
 	this->idleColor = idleColor;
 	this->hoverColor = hoverColor;
 	this->activeColor = activeColor;

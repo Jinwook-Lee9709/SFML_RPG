@@ -13,10 +13,8 @@ const bool& State::getQuit() const
 	return quit;
 }
 
-void State::checkForQuit()
+void State::endState()
 {
-	if (InputManager::GetKeyPressed(sf::Keyboard::Escape))
-	{
-		quit = true;
-	}
+	this->quit = true;
 }
+

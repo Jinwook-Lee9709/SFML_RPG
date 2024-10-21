@@ -1,19 +1,46 @@
 #include "Entity.h"
 
+void Entity::initVariables()
+{
+	movementComponent = nullptr;
+}
+
 Entity::Entity()
 {
-	shape.setSize(sf::Vector2f(50.f, 50.f));
-	shape.setFillColor(sf::Color::White);
-	movementSpeed = 100.f;
+	initVariables();
+	 
 }
 
 Entity::~Entity()
 {
 }
 
+void Entity::createSprite(const std::string tex)
+{
+	if (ResourceManager<sf::Texture>::Instance().Load(tex)) {
+		sprite.setTexture(ResourceManager<sf::Texture>::Instance().Get(tex));
+	}
+	
+}
+
+void Entity::createMovementComponent(const float maxVelocity)
+{
+	this->movementComponent = new MovementComponent(maxVelocity);
+}
+
+void Entity::setPosition(const float x, const float y)
+{
+	sprite.setPosition(x, y);
+}
+
 void Entity::move(const float& dt, const float dir_x, const float dir_y)
 {
-	shape.move(dir_x * movementSpeed * dt, dir_y * movementSpeed * dt);
+	if (this->movementComponent)
+	{
+		movementComponent->move(dir_x, dir_y);
+		sprite.move(movementComponent->getVelocity()*dt);
+	}
+	
 }
 
 void Entity::update(const float& dt)
@@ -23,5 +50,5 @@ void Entity::update(const float& dt)
 
 void Entity::render(sf::RenderTarget* target)
 {
-	target->draw(shape);
+	target->draw(sprite);
 }

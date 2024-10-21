@@ -1,11 +1,28 @@
 #include "MainMenuState.h"
 
+void MainMenuState::initVarialbes()
+{
+}
+
+void MainMenuState::initBackground()
+{
+	background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
+	if (ResourceManager<sf::Texture>::Instance().Load("graphics/background.jpg")) {
+		background.setTexture(&ResourceManager<sf::Texture>::Instance().Get("graphics/background.jpg"));
+	}
+	
+
+
+}
+
 void MainMenuState::initButtons()
 {
-	if (ResourceManager<sf::Font>::Instance().Load("fonts/Sansation.ttf")) {
-		buttons["GAME_STATE"] = new Button(100, 100, 150, 50, "fonts/Sansation.ttf", "New Game",
+	if (ResourceManager<sf::Font>::Instance().Load("fonts/DwarvenAxe.ttf")) {
+		buttons["GAME_STATE"] = new Button(window->getSize().x * 0.5f, window->getSize().y * 0.75f, 150, 50, "fonts/DwarvenAxe.ttf", "New Game",
 			sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200));
-		buttons["EXIT_STATE"] = new Button(100, 300, 150, 50, "fonts/Sansation.ttf", "Quit",
+		buttons["SETTINGS"] = new Button(window->getSize().x * 0.5f, window->getSize().y * 0.75f + 70, 150, 50, "fonts/DwarvenAxe.ttf", "SETTINGS",
+			sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200));
+		buttons["EXIT_STATE"] = new Button(window->getSize().x * 0.5f, window->getSize().y * 0.75f + 140, 150, 50, "fonts/DwarvenAxe.ttf", "Quit",
 			sf::Color(100, 100, 100, 200), sf::Color(150, 150, 150, 200), sf::Color(20, 20, 20, 200));
 	}
 	
@@ -14,10 +31,10 @@ void MainMenuState::initButtons()
 MainMenuState::MainMenuState(sf::RenderWindow* window, std::stack<State*>* states)
 	: State(window, states)
 {
+	initVarialbes();
+	initBackground();
 	initButtons();
 
-	background.setSize(sf::Vector2f(window->getSize().x,window->getSize().y));
-	background.setFillColor(sf::Color::Magenta);
 }
 
 MainMenuState::~MainMenuState()
@@ -27,14 +44,9 @@ MainMenuState::~MainMenuState()
 	}
 }
 
-void MainMenuState::endState()
-{
-	std::cout << "Ending GameStates!!" << std::endl;
-}
-
 void MainMenuState::updateInput(const float& dt)
 {
-	checkForQuit();
+
 
 }
 
@@ -49,7 +61,7 @@ void MainMenuState::updateButtons()
 	}
 	//QUit the game
 	if (buttons["EXIT_STATE"]->isPressed()) {
-		quit = true;
+		this->endState();
 	}
 }
 
@@ -76,5 +88,8 @@ void MainMenuState::render(sf::RenderTarget* target)
 	target->draw(background);
 	
 	renderButtons(target);
+
+
+
 }
 
