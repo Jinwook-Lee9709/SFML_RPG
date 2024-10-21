@@ -8,6 +8,10 @@ private:
 	//Variables
 	sf::RenderWindow *window;
 	sf::Event ev;
+	std::vector<sf::VideoMode> videoModes;
+	sf::ContextSettings windowSettings;
+	bool fullscreen;
+
 
 	sf::Clock dtClock;
 	float dt;
@@ -15,6 +19,7 @@ private:
 	std::stack<State*> states;
 
 	//Initialization
+	void initVarialbes();
 	void initWindow();
 	void initStates();
 

@@ -22,7 +22,6 @@ MainMenuState::MainMenuState(sf::RenderWindow* window, std::stack<State*>* state
 
 MainMenuState::~MainMenuState()
 {
-	
 	for (auto pair : buttons) {
 		delete pair.second;
 	}
